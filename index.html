@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG" />
+  <meta property="og:url" content="URL OF THE WEBSITE" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents</title>
+  <link rel="icon" type="image/x-icon" href="static/images/M3S.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+
+  <style>
+    /* Minimalist Toggle Switch */
+    .view-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .toggle-label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #4a4a4a;
+      transition: color 0.3s ease;
+    }
+
+    .toggle-label.active {
+      color: #3273dc;
+      font-weight: 600;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.3s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    input:checked+.slider {
+      background-color: #3273dc;
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(26px);
+    }
+
+    /* Content Sections */
+    .content-section {
+      transition: all 0.5s ease;
+    }
+
+    .video-container {
+      padding: 1rem;
+      width: 1000px;
+      margin: 0 auto;
+    }
+
+    .diagrams-container {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-top: 1rem;
+      max-width: 1000px;
+      margin: 1rem auto 0 auto;
+    }
+
+    .diagram-item {
+      min-width: 0;
+    }
+
+    .architecture-flow {
+      flex: 2;
+    }
+
+    .memory-efficiency {
+      flex: 1;
+    }
+
+    .diagram-item h3 {
+      margin-bottom: 1rem;
+    }
+
+    .image-wrapper {
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    .image-wrapper img {
+      height: 350px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .view-toggle {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .toggle-label {
+        font-size: 0.9rem;
+      }
+
+      .video-container {
+        padding: 0.5rem;
+      }
+
+      .diagrams-container {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .architecture-flow,
+      .memory-efficiency {
+        flex: 1;
+      }
+
+      .diagram-item h3 {
+        font-size: 1.2rem;
+      }
+
+      .image-wrapper {
+        padding: 0.25rem;
+      }
+
+      .image-wrapper img {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title"><strong>MEM1</strong>: Learning to Synergize Memory and Reasoning
+              for Efficient Long-Horizon Agents</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a target="_blank">Zijian Zhou</a><sup>*,1,2</sup>,</span>
+              <span class="author-block">
+                <a target="_blank">Ao Qu</a><sup>*,1,3</sup>,</span><br>
+              <span class="author-block">
+                <a target="_blank">Zhaoxuan Wu</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a target="_blank">Sunghwan Kim</a><sup>4</sup>,</span>
+              <span class="author-block">
+                <a target="_blank">Alok Prakash</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a target="_blank">Daniela Rus</a><sup>1,3</sup>,</span>
+              <span class="author-block">
+                <a target="_blank">Jinhua Zhao</a><sup>1,3</sup>,</span>
+              <span class="author-block">
+                <a target="_blank">Bryan Kian Hsiang Low</a><sup>1,3</sup>,</span><br>
+              <span class="author-block">
+                <a target="_blank">Paul Pu Liang</a><sup>3</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Singapore-MIT Alliance for Research and Technology
+                Centre</span><br>
+              <span class="author-block"><sup>2</sup>National University of Singapore</span><br>
+              <span class="author-block"><sup>3</sup>MIT</span><br>
+              <span class="author-block"><sup>4</sup>Yonsei University</span>
+              <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution. Correspondence: <a
+                    href="mailto:zhou_zijian@u.nus.edu">zhou_zijian@u.nus.edu</a>, <a
+                    href="mailto:qua@mit.edu">qua@mit.edu</a></small></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Arxiv PDF link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2506.15841" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <!-- Github link -->
+                <span class="link-block">
+                  <a href="https://github.com/quao627/MEM1" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2506.15841" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+
+                  <span class="link-block">
+                    <a href="https://huggingface.co/Mem-Lab" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon" style="vertical-align: middle; font-size: 20px;">🤗</span>
+                      <span style="vertical-align: middle;">Model</span>
+                    </a>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">About MEM1</h2>
+          <div class="content has-text-justified">
+            <p>
+              Modern language agents must operate over long-horizon, multi-turn interactions, retrieving external
+              information, adapting to observations, and answering interdependent queries. Yet, most LLM systems rely on
+              <strong>full-context prompting</strong>, appending all past turns regardless of their relevance. This
+              leads to unbounded memory growth, increased computational costs, and degraded reasoning performance on
+              out-of-distribution input lengths. We introduce <strong>MEM1</strong>, an end-to-end reinforcement
+              learning framework that enables agents to operate with <strong>constant memory</strong> across long
+              multi-turn tasks. At each turn, MEM1 updates a compact shared internal state that jointly supports memory
+              consolidation and reasoning—integrating prior memory with new observations while strategically discarding
+              irrelevant or redundant information. To support training in more realistic and compositional settings, we
+              propose a simple yet scalable approach for constructing multi-turn environments by composing existing
+              datasets into arbitrarily complex task sequences. Experiments across three domains—including internal
+              retrieval QA, open-domain web QA, and multi-turn web shopping—show that <strong>MEM1-7B improves
+                performance by 3.5x and reduces memory usage by 3.7x compared to Qwen2.5-14B-Instruct</strong> on a
+              16-objective multi-hop QA task, while also generalizing beyond the training horizon. Our results
+              demonstrate the promise of <strong>reasoning-driven memory consolidation</strong> as a scalable
+              alternative for training long-horizon interactive agents, optimizing both efficiency and performance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End paper abstract -->
+
+
+  <!-- Introduction -->
+  <section class="section hero is-small">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <h2 class="title is-3">How MEM1 Works</h2>
+          <div class="content has-text-justified">
+            <div class="view-toggle has-text-centered mb-5">
+              <span class="toggle-label" id="demo-label">Demo Video</span>
+              <label class="switch">
+                <input type="checkbox" id="content-toggle" onchange="toggleContent()">
+                <span class="slider"></span>
+              </label>
+              <span class="toggle-label" id="diagrams-label">Diagrams</span>
+            </div>
+
+            <!-- Demo Video Section -->
+            <div id="demo-section" class="content-section">
+              <div class="content has-text-justified">
+                <div class="video-container">
+                  <video controls poster="static/images/video-thumbnail.jpg"
+                    style="width: 100%; max-width: 800px; min-height: 450px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: block; margin: 0 auto;">
+                    <source src="static/videos/mem1_demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <p class="has-text-grey mt-4 is-size-6 has-text-centered">
+                  <b>Demo Video:</b> Placeholder
+                </p>
+              </div>
+            </div>
+
+            <!-- Technical Diagrams Section -->
+            <div id="diagrams-section" class="content-section" style="display: none;">
+              <div class="content has-text-justified">
+                <div class="diagrams-container">
+                  <!-- Flow Diagram -->
+                  <div class="diagram-item architecture-flow">
+                    <h3 class="title is-5 has-text-centered mb-3">Flow Diagram</h3>
+                    <div class="image-wrapper">
+                      <img src="static/images/mem1_flow.jpg" alt="How MEM1 Works"
+                        style="width: 100%; height: 300px; object-fit: contain; border-radius: 4px;">
+                    </div>
+                    <p class="has-text-grey mt-4 is-size-6">
+                      <b>MEM1 generates an Internal State (IS) at each step, blending memory updates with the reasoning
+                        process to maintain a constant-size working memory.</b> Unlike previous agents that accumulate
+                      ever-growing context, MEM1 updates and overwrites its internal state, discarding earlier thoughts
+                      and actions.
+                    </p>
+                  </div>
+
+                  <!-- Token Comparison -->
+                  <div class="diagram-item memory-efficiency">
+                    <h3 class="title is-5 has-text-centered mb-3">Memory Efficiency</h3>
+                    <div class="image-wrapper">
+                      <img src="static/images/mem1_token_comparison.jpg" alt="MEM1 Token Comparison"
+                        style="width: 100%; height: 300px; object-fit: contain; border-radius: 4px;">
+                    </div>
+                    <p class="has-text-grey mt-4 is-size-6">
+                      <b>Conceptual comparison:</b> Traditional agents accumulate context linearly while MEM1 achieves
+                      near-constant memory usage.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function toggleContent() {
+      var toggle = document.getElementById("content-toggle");
+      var demoSection = document.getElementById("demo-section");
+      var diagramsSection = document.getElementById("diagrams-section");
+      var demoLabel = document.getElementById("demo-label");
+      var diagramsLabel = document.getElementById("diagrams-label");
+
+      if (toggle.checked) {
+        // Show technical diagrams
+        demoSection.style.display = "none";
+        diagramsSection.style.display = "block";
+
+        // Update labels
+        demoLabel.classList.remove("active");
+        diagramsLabel.classList.add("active");
+      } else {
+        // Show demo video
+        demoSection.style.display = "block";
+        diagramsSection.style.display = "none";
+
+        // Update labels
+        demoLabel.classList.add("active");
+        diagramsLabel.classList.remove("active");
+      }
+    }
+
+    // Initialize the toggle state on page load
+    document.addEventListener("DOMContentLoaded", function () {
+      var demoLabel = document.getElementById("demo-label");
+      var diagramsLabel = document.getElementById("diagrams-label");
+
+      // Set initial state (demo video is active)
+      demoLabel.classList.add("active");
+
+      // Add click handlers for labels
+      demoLabel.addEventListener("click", function () {
+        document.getElementById("content-toggle").checked = false;
+        toggleContent();
+      });
+
+      diagramsLabel.addEventListener("click", function () {
+        document.getElementById("content-toggle").checked = true;
+        toggleContent();
+      });
+    });
+  </script>
+
+
+
+
+
+  <!-- Method -->
+  <section class="section hero is-small is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <div class="content">
+            <h2 class="title is-3">Training MEM1</h2>
+            <div class="level-set has-text-justified">
+              <p>
+                <img src="static/images/mem1_method_diagram.jpg" alt="Training MEM1"
+                  class="blend-img-background center-image" style="max-width: 100%; height: auto;">
+              </p>
+              <p>
+                <strong>We train MEM1 via a reinforcement learning framework that integrates a specialized attention
+                  masking scheme tailored for dynamic memory, a custom multi-turn rollout mechanism for iterative
+                  context compression and memory consolidation, and outcome-based reward assignment.</strong>
+              </p>
+              <ul>
+                <li>
+                  <strong>RL Pipeline (top):</strong> MEM1 interacts with an environment over multiple turns. At each
+                  turn, the agent issues a <em>Query</em>, updates its <em>Internal State (IS)</em>, and receives new
+                  <em>Info</em>. Rewards are computed from the final answer and used to train both the Actor (policy)
+                  and Critic (value) models using RL objectives.
+                </li>
+                <li>
+                  <strong>Memory Consolidation (bottom left):</strong> MEM1 keeps context size constant by pruning old
+                  states after each turn. All prior knowledge is compressed into the latest <em>Internal State</em>,
+                  so only the latest internal state, query, and info are kept in memory. This design forces the agent
+                  to continuously integrate, update, and compress knowledge at every step.
+                </li>
+                <li>
+                  <strong>Masked Policy Optimization (bottom right):</strong> During training, a <em>2D attention
+                    mask</em> ensures that each new internal state can only access the question and most recent
+                  context—earlier information is masked out. An <em>Info Mask</em> further restricts gradient updates to
+                  only tokens generated by the model, not environment feedback.
+                </li>
+              </ul>
+              <p>
+                <strong>Key innovation:</strong> MEM1 learns to treat “what to remember” as part of its reasoning. This
+                allows strong multi-turn performance with constant memory, enabling efficient long-horizon reasoning.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Results -->
+  <section class="section hero is-small">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <div class="content">
+            <h2 class="title is-3">Results on Deep Research & Web Agent Tasks</h2>
+
+            <!-- Multi-Objective Multi-Hop Results -->
+            <h3 class="title is-4">MEM1 on Deep Research Tasks (Multi-Objective Multi-Hop)</h3>
+            <div class="level-set has-text-justified">
+              <p>
+                <img src="static/images/mem1_results_diagram1.jpg"
+                  alt="Scaling of performance and memory with number of objectives"
+                  class="blend-img-background center-image" style="max-width: 100%; height: auto;">
+              </p>
+              <p>
+                <img src="static/images/mem1_results_table1.jpg" alt="Table: Multi-objective QA results"
+                  class="blend-img-background center-image" style="max-width: 100%; height: auto;">
+              </p>
+              <p>
+                To rigorously evaluate agent performance on long-horizon search tasks, we construct compositional multi-objective multi-hop QA tasks, where each instance requires answering several questions in a single trajectory. As the number of questions increases, these tasks place growing demands on memory and reasoning. While existing agents exhibit nearly linear growth in peak memory usage, MEM1 maintains a near-constant memory footprint by iteratively compressing and consolidating its context. Notably, while MEM1 initially underperforms Qwen2.5-14B-Instruct, its accuracy steadily improves as the number of objectives increases, eventually surpassing the 14B model, which has twice the parameter count. In the 16-objective setting, MEM1 achieves higher accuracy while requiring only 27.1% of the peak tokens and 29.3% of the total inference time compared to Qwen2.5-14B-Instruct. When the number of objectives exceeds eight, most baseline methods experience sharp declines in accuracy or even collapse entirely, whereas MEM1 preserves both strong accuracy and efficiency.
+              </p>
+            </div>
+
+            <!-- WebShop Generalization Results -->
+            <h3 class="title is-4">MEM1 on Long-Horizon Web Navigation (WebShop)</h3>
+            <div class="level-set has-text-justified">
+              <p>
+                <img src="static/images/mem1_results_table2.jpg" alt="Table: WebShop results"
+                  class="blend-img-background center-image" style="max-width: 100%; height: auto;">
+              </p>
+              <p>
+                When evaluated in the WebShop environment—an open-ended, long-horizon web navigation benchmark—MEM1
+                achieves state-of-the-art performance and remarkable memory and compute efficiency. MEM1 outperforms
+                previous agent methods and even matches or exceeds the best large models (including 13B+ parameters and
+                GPT-4o) in final reward, while reducing peak memory usage and computational dependency by over 2.5x.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Emergent Behavior -->
+  <section class="section hero is-small is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <div class="content">
+            <h2 class="title is-3">Emergent Agent Behaviors</h2>
+            <div class="level-set has-text-justified">
+              <p>
+                Through analyzing MEM1’s multi-turn interactions on challenging, two-objective question-answering tasks,
+                we observe a range of emergent behaviors that go well beyond simple information retrieval. MEM1 learns
+                to:
+              <ul>
+                <li><b>Manage multiple objectives concurrently</b> by structuring and updating its internal memory for
+                  each question, flexibly shifting focus when progress stalls.</li>
+                <li><b>Interleave reasoning and memory</b>, weaving together what it’s found so far with ongoing
+                  decision-making—so it always acts on the most relevant information.</li>
+                <li><b>Extract and prioritize key details</b> from previous results to shape future searches, and
+                  selectively update memory as new facts arrive.</li>
+                <li><b>Deploy robust search strategies</b> such as planning, breaking down complex queries, verifying
+                  earlier answers, and adjusting queries if retrieval fails—behaviors that echo those of expert human
+                  researchers.</li>
+              </ul>
+              <p>
+                The following snippets of internal states and actions showing <strong>MEM1</strong>'s emergent behaviors
+                in
+                2-objective QA tasks.
+              </p>
+              <p>
+                <img src="static/images/mem1_behavior.jpg" alt="Emergent Behavior"
+                  class="blend-img-background center-image" style="max-width: 100%; height: auto;">
+              </p>
+              <p>
+                <span class="tag" style="background: #CDF5F6; color: #274472;">Light Blue</span> denotes behaviors
+                related to <b>multi-objective tasks</b>.
+                <span class="tag" style="background: #F9EBDF; color: #665C39;">Beige</span> denotes behaviors related to
+                <b>memory in internal state</b>.
+                <span class="tag" style="background: #EFF9DA; color: #316144;">Pastel Green</span> denotes behaviors
+                related to <b>general search strategies</b>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@misc{zhou2025mem1learningsynergizememory,
+  title={MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents}, 
+  author={Zijian Zhou and Ao Qu and Zhaoxuan Wu and Sunghwan Kim and Alok Prakash and Daniela Rus and Jinhua Zhao and Bryan Kian Hsiang Low and Paul Pu Liang},
+  year={2025},
+  eprint={2506.15841},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2506.15841}, 
+}</code></pre>
+    </div>
+  </section>
+  <!--End BibTex citation -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the source code of this website, we just ask that you link back to this page in the
+              footer. <br> This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
+</body>
+
+</html>
